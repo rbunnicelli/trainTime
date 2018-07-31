@@ -1,0 +1,53 @@
+#jumbotron {
+    background-image: url("../images/america.jpg");
+    background-position: auto;
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 250px;
+    text-align: center;
+}
+
+p1{ 
+    font-size: 70px;
+    color: navy;
+    text-shadow: 2px 2px white;
+}
+
+p3 {
+    font-size: 50px;
+    color: red;
+    text-shadow: 2px 2px white;
+}
+
+table {
+    border: 2px solid navy;
+}
+
+form {
+    border: 2px solid red;
+}
+
+.submit {
+    background-color: navy;
+}
+
+.submit:hover {
+    background-color: red;
+}
+
+.button {
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.tableHeader {
+    background-color: navy;
+    margin-bottom: 0px;
+    color: white;
+}
+
+.formHeader {
+    background-color: red;
+    margin-bottom: 0px;
+    color: white;
+}
