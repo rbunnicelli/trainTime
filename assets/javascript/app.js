@@ -18,14 +18,14 @@
     var userDest = $("#destination").val().trim();
     var userFirstTime = $("#firstTrain").val().trim();
     var userFreq = $("#frequency").val().trim();
-    
+    //create object
     var trainInfo = {
       trainAdded: userTrain,
       destAdded: userDest,
       firstTimeAdded: userFirstTime,
       freqAdded: userFreq
     }
-
+    //push to firebase to store data for these four values
     database.ref().push(trainInfo);
 
     $("#train_name").val("");
@@ -34,36 +34,34 @@
     $("#frequency").val("");
   })
 
-  setInterval(function(startTime) {
-    $()
-  })
-
+  //firebase watching this function, gets info from previous button handler (prevChildKey)
   database.ref().on("child_added", function(childSnapshot, prevChildKey) {
+    //local variables that capture value in firebase object
     var train = childSnapshot.val().trainAdded;
     var dest = childSnapshot.val().destAdded;
     var firstTimeofTrain = childSnapshot.val().firstTimeAdded;
     var freqMins = childSnapshot.val().freqAdded;
-    
+
+    //takes the time the user input and converts to hours and minutes. Subtract year to make sure its before the time right now
     var firstTimeConverted = moment(firstTimeofTrain, "HH:mm").subtract(1, "years");
-    console.log("1st time: " + firstTimeConverted);
-
+    
+    //sets moment() to the current time
     var currentTime = moment();
-    console.log("current time: " + currentTime);
-
+    
+    //difference between current time and the user input time
     var diffInTime = moment().diff(moment(firstTimeConverted), "minutes");
-    console.log("diffInTime: " + diffInTime);
-
+    
+    //divides the difference in time by how often the train comes
     var remainder = diffInTime % freqMins;
-    console.log("remainder: " +remainder);
-
+    
+    //how often the train comes minus difference in time 
     var minutesAway = freqMins - remainder;
-    console.log("minutesAway: " + minutesAway);
-
+   
+    //claculate next arrival time based the amount of minutes away
     var nextTrainArrival = moment().add(minutesAway, "minutes").format("HH:mm");
-    console.log("next arrival: " + nextTrainArrival);
+    
 
-    $("#trainInfo").append("<tr><td>" + train + "</td>" + "<td>" + dest +"</td> + <td>" + freqMins + "</td> + <td>" + nextTrainArrival + "</td> + <td>" + minutesAway + "</td></tr>");
+    //appends the local variables based on the user input to the table
+    $("#trainInfo").append("<tr><td>" + train + "</td>" + "<td>" + dest +"</td> + <td>" + freqMins + "</td> + <td id = 'next'>" + nextTrainArrival + "</td> + <td = 'minAway'>" + minutesAway + "</td></tr>");
   });
-
-
 
