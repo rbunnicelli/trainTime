@@ -64,4 +64,3 @@
     //appends the local variables based on the user input to the table
     $("#trainInfo").append("<tr><td>" + train + "</td>" + "<td>" + dest +"</td> + <td>" + freqMins + "</td> + <td id = 'next'>" + nextTrainArrival + "</td> + <td = 'minAway'>" + minutesAway + "</td></tr>");
   });
-
